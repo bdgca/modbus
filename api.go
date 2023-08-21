@@ -9,41 +9,41 @@ type Client interface {
 
 	// ReadCoils reads from 1 to 2000 contiguous status of coils in a
 	// remote device and returns coil status.
-	ReadCoils(slaveid byte, address, quantity uint16) (results []byte, err error)
+	ReadCoils(address, quantity uint16, slaveid ...byte) (results []byte, err error)
 	// ReadDiscreteInputs reads from 1 to 2000 contiguous status of
 	// discrete inputs in a remote device and returns input status.
-	ReadDiscreteInputs(slaveid byte, address, quantity uint16) (results []byte, err error)
+	ReadDiscreteInputs(address, quantity uint16, slaveid ...byte) (results []byte, err error)
 	// WriteSingleCoil write a single output to either ON or OFF in a
 	// remote device and returns output value.
-	WriteSingleCoil(slaveid byte, address, value uint16) (results []byte, err error)
+	WriteSingleCoil(address, value uint16, slaveid ...byte) (results []byte, err error)
 	// WriteMultipleCoils forces each coil in a sequence of coils to either
 	// ON or OFF in a remote device and returns quantity of outputs.
-	WriteMultipleCoils(slaveid byte, address, quantity uint16, value []byte) (results []byte, err error)
+	WriteMultipleCoils(address, quantity uint16, value []byte, slaveid ...byte) (results []byte, err error)
 
 	// 16-bit access
 
 	// ReadInputRegisters reads from 1 to 125 contiguous input registers in
 	// a remote device and returns input registers.
-	ReadInputRegisters(slaveid byte, address, quantity uint16) (results []byte, err error)
+	ReadInputRegisters(address, quantity uint16, slaveid ...byte) (results []byte, err error)
 	// ReadHoldingRegisters reads the contents of a contiguous block of
 	// holding registers in a remote device and returns register value.
-	ReadHoldingRegisters(slaveid byte, address, quantity uint16) (results []byte, err error)
+	ReadHoldingRegisters(address, quantity uint16, slaveid ...byte) (results []byte, err error)
 	// WriteSingleRegister writes a single holding register in a remote
 	// device and returns register value.
-	WriteSingleRegister(slaveid byte, address, value uint16) (results []byte, err error)
+	WriteSingleRegister(address, value uint16, slaveid ...byte) (results []byte, err error)
 	// WriteMultipleRegisters writes a block of contiguous registers
 	// (1 to 123 registers) in a remote device and returns quantity of
 	// registers.
-	WriteMultipleRegisters(slaveid byte, address, quantity uint16, value []byte) (results []byte, err error)
+	WriteMultipleRegisters(address, quantity uint16, value []byte, slaveid ...byte) (results []byte, err error)
 	// ReadWriteMultipleRegisters performs a combination of one read
 	// operation and one write operation. It returns read registers value.
-	ReadWriteMultipleRegisters(slaveid byte, readAddress, readQuantity, writeAddress, writeQuantity uint16, value []byte) (results []byte, err error)
+	ReadWriteMultipleRegisters(readAddress, readQuantity, writeAddress, writeQuantity uint16, value []byte, slaveid ...byte) (results []byte, err error)
 	// MaskWriteRegister modify the contents of a specified holding
 	// register using a combination of an AND mask, an OR mask, and the
 	// register's current contents. The function returns
 	// AND-mask and OR-mask.
-	MaskWriteRegister(slaveid byte, address, andMask, orMask uint16) (results []byte, err error)
+	MaskWriteRegister(address, andMask, orMask uint16, slaveid ...byte) (results []byte, err error)
 	//ReadFIFOQueue reads the contents of a First-In-First-Out (FIFO) queue
 	// of register in a remote device and returns FIFO value register.
-	ReadFIFOQueue(slaveid byte, address uint16) (results []byte, err error)
+	ReadFIFOQueue(address uint16, slaveid ...byte) (results []byte, err error)
 }
