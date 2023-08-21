@@ -58,6 +58,9 @@ func (mb *rtuPackager) Encode(pdu *ProtocolDataUnit) (adu []byte, err error) {
 	adu = make([]byte, length)
 
 	adu[0] = mb.SlaveId
+	if pdu.SlaveId > 0 {
+		adu[0] = pdu.SlaveId
+	}
 	adu[1] = pdu.FunctionCode
 	copy(adu[2:], pdu.Data)
 
@@ -100,6 +103,7 @@ func (mb *rtuPackager) Decode(adu []byte) (pdu *ProtocolDataUnit, err error) {
 	}
 	// Function code & data
 	pdu = &ProtocolDataUnit{}
+	pdu.SlaveId = adu[0]
 	pdu.FunctionCode = adu[1]
 	pdu.Data = adu[2 : length-2]
 	return

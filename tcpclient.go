@@ -75,6 +75,9 @@ func (mb *tcpPackager) Encode(pdu *ProtocolDataUnit) (adu []byte, err error) {
 	binary.BigEndian.PutUint16(adu[4:], length)
 	// Unit identifier
 	adu[6] = mb.SlaveId
+	if pdu.SlaveId > 0 {
+		adu[6] = pdu.SlaveId
+	}
 
 	// PDU
 	adu[tcpHeaderSize] = pdu.FunctionCode
@@ -123,6 +126,7 @@ func (mb *tcpPackager) Decode(adu []byte) (pdu *ProtocolDataUnit, err error) {
 	// The first byte after header is function code
 	pdu.FunctionCode = adu[tcpHeaderSize]
 	pdu.Data = adu[tcpHeaderSize+1:]
+	pdu.SlaveId = adu[tcpHeaderSize-1]
 	return
 }
 
