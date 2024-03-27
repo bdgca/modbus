@@ -1,6 +1,6 @@
-module github.com/bkzy/modbus
+module github.com/bdgca/modbus
 
-go 1.18
+go 1.22
 
 require (
 	github.com/goburrow/modbus v0.1.0
